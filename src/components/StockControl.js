@@ -27,6 +27,14 @@ class StockControl extends React.Component {
     this.setState({selectedItem: selectedItem});
   }
 
+  handleDeletingStock = (id) => {
+    const newMasterStockList = this.state.masterStockList.filter(stockItem => stockItem.id !== id);
+    this.setState({
+      masterStockList: newMasterStockList,
+      selectedItem: null
+    })
+  }
+
   handleClick = () => {
     if (this.state.selectedItem != null) {
       this.setState({
@@ -44,7 +52,7 @@ class StockControl extends React.Component {
     let currentlyVisibleState = null;
     let buttonText = null;
     if (this.state.selectedItem != null) {
-      currentlyVisibleState = <ItemDetail item={this.state.selectedItem} />
+      currentlyVisibleState = <ItemDetail item={this.state.selectedItem} onClickingDelete = {this.handleDeletingStock}/>
       buttonText = "Return to Stock List";
     } else if (this.state.formVisibleOnPage) {
       currentlyVisibleState = <NewStockForm onNewStockCreation={this.handleAddingNewStockToList} />
