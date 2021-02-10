@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 function StockList(props) {
   return (
     <>
-      {props.stockList.Map((stockItem, index) =>
+      {props.stockList.map((stockItem, index) =>
         <StockItem name={stockItem.name}
           description={stockItem.description}
           quantity={stockItem.quantity}

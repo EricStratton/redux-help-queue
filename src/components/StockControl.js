@@ -1,5 +1,5 @@
 import React from 'react';
-import NewStockForm from './newNewStockForm';
+import NewStockForm from './NewStockForm';
 import StockList from './StockList';
 
 class StockControl extends React.Component {
@@ -27,18 +27,18 @@ class StockControl extends React.Component {
   }
 
   render() {
-    let currenttlyVisibleState = null;
+    let currentlyVisibleState = null;
     let buttonText = null;
     if (this.state.formVisibleOnPage) {
-      currenttlyVisibleState = <NewStockForm onNewTicketCreation={this.handleAddingNewStockToList}/>
+      currentlyVisibleState = <NewStockForm onNewStockCreation={this.handleAddingNewStockToList}/>
       buttonText = "Return to Stock List";
     } else {
-      currenttlyVisibleState = <StockList stockList={this.state.masterStockList}/>
+      currentlyVisibleState = <StockList stockList={this.state.masterStockList}/>
       buttonText = "Add Stock";
     }
     return (
       <>
-        {currenttlyVisibleState}
+        {currentlyVisibleState}
         <button onClick = {this.handleClick}>{buttonText}</button>
       </>
     );

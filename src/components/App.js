@@ -1,14 +1,12 @@
 import React from 'react';
 import Header from './Header';
-
+import StockControl from './StockControl';
 
 function App() {
   return (
     <>
-      <div class="container">
-        <Header/>
-        {/* <TicketControl/> */}
-      </div>
+      <Header/>
+      <StockControl />
     </>
   );
 }
