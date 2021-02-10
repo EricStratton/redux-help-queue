@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 function StockItem(props) {
   return (
     <>
-      <h3>{props.name}</h3>
-      <p>{props.description}</p>
-      <p>{props.quantity}</p>
+      <div onClick = {() => props.whenItemClicked(props.id)}>
+        <h3>{props.name}</h3>
+        {/*<p>{props.description}</p>
+        <p>{props.quantity}</p>*/}
+      </div>
     </>
   );
 }
@@ -14,7 +16,9 @@ function StockItem(props) {
 StockItem.propTypes = {
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  quantity: PropTypes.number.isRequired
+  quantity: PropTypes.number.isRequired,
+  id: PropTypes.string,
+  whenItemClicked: PropTypes.func
 };
 
 export default StockItem;

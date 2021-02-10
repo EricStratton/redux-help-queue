@@ -5,18 +5,23 @@ import PropTypes from 'prop-types';
 function StockList(props) {
   return (
     <>
-      {props.stockList.map((stockItem, index) =>
-        <StockItem name={stockItem.name}
+      {props.stockList.map((stockItem) =>
+        <StockItem 
+          whenItemClicked = { props.onItemSelection }
+          name={stockItem.name}
           description={stockItem.description}
           quantity={stockItem.quantity}
-          key={index}/>
+          key={stockItem.id}
+          id={stockItem.id}/>
       )}
     </>
   );
 }
 
 StockList.propTypes = {
-  stockList: PropTypes.array
+  stockList: PropTypes.array,
+  onItemSelection: PropTypes.func
+
 }
 
 export default StockList;
