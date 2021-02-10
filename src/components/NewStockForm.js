@@ -1,6 +1,7 @@
 import React from "react";
 import { v4 } from 'uuid';
 import PropTypes from "prop-types";
+import ReusableForm from "./ReusableForm";
 
 function NewStockForm(props) {
 
@@ -11,12 +12,8 @@ function NewStockForm(props) {
 
   return (
     <>
-      <form onSubmit = {handleNewStockFormSubmission}>
-        <input type='text' name='name' placeholder='Name of new stock item'/>
-        <textarea name='description' placeholder='Describe your new stock item:'/>
-        <input type='number' name='quantity' placeholder='How many items would you like to sell?'/>
-        <button type='submit'>Create new stock</button>
-      </form>
+      <ReusableForm formSubmissionHandler={handleNewStockFormSubmission}
+      buttonText="Create Stock Item"/>
     </>
   );
 }
