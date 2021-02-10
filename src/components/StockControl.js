@@ -33,7 +33,7 @@ class StockControl extends React.Component {
       currenttlyVisibleState = <NewStockForm onNewTicketCreation={this.handleAddingNewStockToList}/>
       buttonText = "Return to Stock List";
     } else {
-      currenttlyVisibleState = <StockList stockList={this.state.masterStockList}/>;
+      currenttlyVisibleState = <StockList stockList={this.state.masterStockList}/>
       buttonText = "Add Stock";
     }
     return (
