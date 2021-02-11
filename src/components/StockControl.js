@@ -2,6 +2,7 @@ import React from 'react';
 import NewStockForm from './NewStockForm';
 import StockList from './StockList';
 import ItemDetail from './ItemDetail';
+import EditItemForm from './EditItemForm';
 
 class StockControl extends React.Component {
 
@@ -10,7 +11,8 @@ class StockControl extends React.Component {
     this.state = {
       formVisibleOnPage: false,
       masterStockList: [],
-      selectedItem: null
+      selectedItem: null,
+      editing: false
     };
   }
 
@@ -27,20 +29,37 @@ class StockControl extends React.Component {
     this.setState({selectedItem: selectedItem});
   }
 
+  handleEditStockInList = (stockToEdit) => {
+    const editedMasterStockList = this.state.masterStockList
+      .filter(stock => stock.id !== this.state.selectedItem.id)
+      .concat(stockToEdit);
+    this.setState({
+      masterStockList: editedMasterStockList,
+      editing: false,
+      selectedItem: null
+    });
+  }
+
   handleDeletingStock = (id) => {
     const newMasterStockList = this.state.masterStockList.filter(stockItem => stockItem.id !== id);
     this.setState({
       masterStockList: newMasterStockList,
       selectedItem: null
-    })
+    });
+  }
+
+  handleEditClick = () => {
+    console.log("handleEditClick reached!");
+    this.setState({editing: true});
   }
 
   handleClick = () => {
     if (this.state.selectedItem != null) {
       this.setState({
         formVisibleOnPage: false,
-        selectedItem: null
-      })
+        selectedItem: null,
+        editing: false
+      });
     } else {
       this.setState(prevState => ({
         formVisibleOnPage: !prevState.formVisibleOnPage
@@ -51,8 +70,11 @@ class StockControl extends React.Component {
   render() {
     let currentlyVisibleState = null;
     let buttonText = null;
-    if (this.state.selectedItem != null) {
-      currentlyVisibleState = <ItemDetail item={this.state.selectedItem} onClickingDelete = {this.handleDeletingStock}/>
+    if (this.state.editing) {
+      currentlyVisibleState = <EditItemForm item={this.state.selectedItem} onEditItem={this.state.handleEditStockInList}/>
+      buttonText = "Return to Stock";
+    } else if (this.state.selectedItem != null) {
+      currentlyVisibleState = <ItemDetail item={this.state.selectedItem} onClickingDelete={this.handleDeletingStock} onClickingEdit={this.handleEditClick}/>
       buttonText = "Return to Stock List";
     } else if (this.state.formVisibleOnPage) {
       currentlyVisibleState = <NewStockForm onNewStockCreation={this.handleAddingNewStockToList} />
