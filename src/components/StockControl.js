@@ -40,15 +40,15 @@ class StockControl extends React.Component {
     });
   }
 
-  handleSellingStockInList = (toIncrease) => { // Method to decrement Item quantity by one. // // Incrementing bug needs fix! //
+  handleSellingStockInList = (toIncrease) => { // Method to decrement Item quantity by one. //
     const selectedItem = this.state.selectedItem;
     let newQuantity;
     if (toIncrease) {
-      newQuantity = Object.assign({}, selectedItem, { quantity: selectedItem.quantity + 1 });
+      newQuantity = Object.assign({}, selectedItem, { quantity: parseInt(selectedItem.quantity) + 1 });
     } else {
-      newQuantity = Object.assign({}, selectedItem, { quantity: selectedItem.quantity - 1 });
+      newQuantity = Object.assign({}, selectedItem, { quantity: parseInt(selectedItem.quantity) - 1 });
     }
-    // const newQuantity = Object.assign({}, selectedItem, {quantity: (!toIncrease ? (selectedItem.quantity - 1) : (selectedItem.quantity + 1)) });
+
     const newItemList = this.state.masterStockList
       .filter(item => item.id !== this.state.selectedItem.id)
       .concat(newQuantity);
