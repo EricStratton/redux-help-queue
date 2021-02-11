@@ -48,7 +48,6 @@ class StockControl extends React.Component {
     } else {
       newQuantity = Object.assign({}, selectedItem, { quantity: parseInt(selectedItem.quantity) - 1 });
     }
-
     const newItemList = this.state.masterStockList
       .filter(item => item.id !== this.state.selectedItem.id)
       .concat(newQuantity);
