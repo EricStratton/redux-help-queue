@@ -40,6 +40,18 @@ class StockControl extends React.Component {
     });
   }
 
+  handleSellingStockInList = () => { // Method to decrement Item quantity by one. //
+    const selectedItem = this.state.selectedItem;
+    const newQuantity = Object.assign({}, selectedItem, {quantity: selectedItem.quantity - 1 });
+    const newItemList = this.state.masterStockList
+      .filter(item => item.id !== this.state.selectedItem.id)
+      .concat(newQuantity);
+    this.setState({
+      masterStockList: newItemList,
+      selectedItem: newQuantity
+    });
+  }
+
   handleDeletingStock = (id) => {
     const newMasterStockList = this.state.masterStockList.filter(stockItem => stockItem.id !== id);
     this.setState({
@@ -72,9 +84,9 @@ class StockControl extends React.Component {
     let buttonText = null;
     if (this.state.editing) {
       currentlyVisibleState = <EditItemForm item={this.state.selectedItem} onEditItem={this.handleEditStockInList}/>
-      buttonText = "Return to Stock";
+      buttonText = "Return to Stock List";
     } else if (this.state.selectedItem != null) {
-      currentlyVisibleState = <ItemDetail item={this.state.selectedItem} onClickingDelete={this.handleDeletingStock} onClickingEdit={this.handleEditClick}/>
+      currentlyVisibleState = <ItemDetail item={this.state.selectedItem} onClickingDelete={this.handleDeletingStock} onClickingEdit={this.handleEditClick} onClickingSell={this.handleSellingStockInList}/>
       buttonText = "Return to Stock List";
     } else if (this.state.formVisibleOnPage) {
       currentlyVisibleState = <NewStockForm onNewStockCreation={this.handleAddingNewStockToList} />
