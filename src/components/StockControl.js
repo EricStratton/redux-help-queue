@@ -71,7 +71,7 @@ class StockControl extends React.Component {
     let currentlyVisibleState = null;
     let buttonText = null;
     if (this.state.editing) {
-      currentlyVisibleState = <EditItemForm item={this.state.selectedItem} onEditItem={this.state.handleEditStockInList}/>
+      currentlyVisibleState = <EditItemForm item={this.state.selectedItem} onEditItem={this.handleEditStockInList}/>
       buttonText = "Return to Stock";
     } else if (this.state.selectedItem != null) {
       currentlyVisibleState = <ItemDetail item={this.state.selectedItem} onClickingDelete={this.handleDeletingStock} onClickingEdit={this.handleEditClick}/>
