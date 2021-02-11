@@ -31,7 +31,7 @@ class StockControl extends React.Component {
 
   handleEditStockInList = (stockToEdit) => {
     const editedMasterStockList = this.state.masterStockList
-      .filter(stock => stock.id !== this.state.selectedItem.id)
+      .filter(item => item.id !== this.state.selectedItem.id)
       .concat(stockToEdit);
     this.setState({
       masterStockList: editedMasterStockList,
