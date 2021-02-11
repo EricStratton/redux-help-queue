@@ -11,7 +11,7 @@ function ItemDetail(props) {
       <h4>{item.description}</h4>
       <h4>{item.quantity}</h4>
       <button onClick={ props.onClickingEdit }>Update Item</button>
-      <button onClick ={() => onClickingDelete(item.id)}>Remove Item</button>
+      <button onClick={ () => onClickingDelete(item.id) }>Remove Item</button>
     </>
   );
 }
