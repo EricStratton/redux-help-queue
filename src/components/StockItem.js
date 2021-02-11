@@ -6,8 +6,8 @@ function StockItem(props) {
     <>
       <div onClick = {() => props.whenItemClicked(props.id)}>
         <h3>{props.name}</h3>
-        {/*<p>{props.description}</p>
-        <p>{props.quantity}</p>*/}
+        {/* <p>{props.description}</p>
+        <p>{props.quantity}</p> */}
       </div>
     </>
   );

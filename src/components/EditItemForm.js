@@ -21,6 +21,6 @@ function EditItemForm(props) {
 EditItemForm.propTypes = {
   item: PropTypes.object,
   onEditItem: PropTypes.func
-}
+};
 
 export default EditItemForm;
