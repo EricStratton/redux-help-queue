@@ -10,6 +10,10 @@ export default (state = {}, action) => {
           id: id
         }
       });
+    case 'DELETE_STOCK':
+      let newState = { ...state };
+      delete newState[id];
+      return newState;
   default:
     return state;
   }
