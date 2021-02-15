@@ -7,7 +7,7 @@ function ItemDetail(props) {
   let quantity;
   if (item.quantity !== 0) {
     quantity = <h4>{item.quantity}</h4>;
-    sellButton = <button onClick={ () => onClickingSell(false) }>Sell Item</button>;
+    sellButton = <button onClick={ () => onClickingSell(item, false) }>Sell Item</button>;
   } else {
     quantity = <h4><strong>Item out of stock</strong></h4>;
   };
@@ -19,7 +19,7 @@ function ItemDetail(props) {
       <h4>{item.description}</h4>
       {quantity}
       {sellButton}
-      <button onClick={ () => onClickingSell(true) }>Re-stock Item</button>
+      <button onClick={ () => onClickingSell(item, true) }>Re-stock Item</button>
       <button onClick={ props.onClickingEdit }>Update Item</button>
       <button onClick={ () => onClickingDelete(item.id) }>Remove Item</button>
     </>

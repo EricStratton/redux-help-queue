@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 function StockList(props) {
   return (
     <>
-      {props.stockList.map((stockItem) =>
+      {Object.values(props.stockList).map((stockItem) =>
         <StockItem 
           whenItemClicked = { props.onItemSelection }
           name={stockItem.name}
@@ -19,7 +19,7 @@ function StockList(props) {
 }
 
 StockList.propTypes = {
-  stockList: PropTypes.array,
+  stockList: PropTypes.object,
   onItemSelection: PropTypes.func
 
 }

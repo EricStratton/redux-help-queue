@@ -3,6 +3,8 @@ import NewStockForm from './NewStockForm';
 import StockList from './StockList';
 import ItemDetail from './ItemDetail';
 import EditItemForm from './EditItemForm';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class StockControl extends React.Component {
 
@@ -10,59 +12,104 @@ class StockControl extends React.Component {
     super(props);
     this.state = {
       formVisibleOnPage: false,
-      masterStockList: [],
       selectedItem: null,
       editing: false
     };
   }
 
   handleAddingNewStockToList = (newStock) => {
-    const newMasterStockList = this.state.masterStockList.concat(newStock);
-    this.setState({
-      masterStockList: newMasterStockList,
-      formVisibleOnPage: false
-    });
+    const { dispatch } = this.props;
+    const { id, name, description, quantity } = newStock;
+    const action = {
+      type: 'ADD_STOCK',
+      id: id,
+      name: name,
+      description: description,
+      quantity: quantity
+    }
+    dispatch(action);
+    this.setState({ formVisibleOnPage: false });
   }
 
   handleChangingSelectedItem = (id) => {
-    const selectedItem = this.state.masterStockList.filter(item => item.id === id)[0];
+    const selectedItem = this.props.masterStockList[id];
     this.setState({selectedItem: selectedItem});
   }
 
   handleEditStockInList = (stockToEdit) => {
-    const editedMasterStockList = this.state.masterStockList
-      .filter(item => item.id !== this.state.selectedItem.id)
-      .concat(stockToEdit);
+    const { dispatch } = this.props;
+    const { id, name, description, quantity } = stockToEdit;
+    const action = {
+      type: 'ADD_STOCK',
+      id: id,
+      name: name,
+      description: description,
+      quantity: quantity,
+    }
+    dispatch(action);
     this.setState({
-      masterStockList: editedMasterStockList,
       editing: false,
       selectedItem: null
     });
   }
 
-  handleSellingStockInList = (toIncrease) => { // Method to decrement Item quantity by one. //
-    const selectedItem = this.state.selectedItem;
-    let newQuantity;
-    if (toIncrease) {
-      newQuantity = Object.assign({}, selectedItem, { quantity: parseInt(selectedItem.quantity) + 1 });
-    } else {
-      newQuantity = Object.assign({}, selectedItem, { quantity: parseInt(selectedItem.quantity) - 1 });
-    }
-    const newItemList = this.state.masterStockList
-      .filter(item => item.id !== this.state.selectedItem.id)
-      .concat(newQuantity);
-    this.setState({
-      masterStockList: newItemList,
-      selectedItem: newQuantity
-    });
-  }
+  // handleSellingStockInList = (toIncrease) => { // Method to decrement Item quantity by one. //
+  //   const selectedItem = this.state.selectedItem;
+  //   let newQuantity;
+  //   if (toIncrease) {
+  //     newQuantity = Object.assign({}, selectedItem, { quantity: parseInt(selectedItem.quantity) + 1 });
+  //   } else {
+  //     newQuantity = Object.assign({}, selectedItem, { quantity: parseInt(selectedItem.quantity) - 1 });
+  //   }
+  //   const newItemList = this.state.masterStockList
+  //     .filter(item => item.id !== this.state.selectedItem.id)
+  //     .concat(newQuantity);
+  //   this.setState({
+  //     masterStockList: newItemList,
+  //     selectedItem: newQuantity
+  //   });
+  // }
 
-  handleDeletingStock = (id) => {
-    const newMasterStockList = this.state.masterStockList.filter(stockItem => stockItem.id !== id);
+  ///////////////////
+
+  handleSellingStockInList = (stockToSell, toIncrease) => {
+    const { dispatch } = this.props;
+    const { id, name, description, quantity } = stockToSell;
+    let action;
+    if (toIncrease) {
+        action = {
+        type: 'ADD_STOCK',
+        name: name,
+        description: description,
+        quantity: quantity + 1,
+        id: id 
+        }
+    } else {
+      action = {
+        type: 'ADD_STOCK',
+        name: name,
+        description: description,
+        quantity: quantity - 1,
+        id: id 
+        }
+    }
+    dispatch(action);
     this.setState({
-      masterStockList: newMasterStockList,
+      editing: false,
       selectedItem: null
     });
+  } 
+
+  ///////////////////
+
+  handleDeletingStock = (id) => {
+    const { dispatch } = this.props;
+    const action = {
+      type: 'DELETE_STOCK',
+      id: id
+    }
+    dispatch(action);
+    this.setState({ selectedItem: null });
   }
 
   handleEditClick = () => {
@@ -97,7 +144,7 @@ class StockControl extends React.Component {
       currentlyVisibleState = <NewStockForm onNewStockCreation={this.handleAddingNewStockToList} />
       buttonText = "Return to Stock List";
     } else {
-      currentlyVisibleState = <StockList stockList={this.state.masterStockList} onItemSelection={this.handleChangingSelectedItem} />
+      currentlyVisibleState = <StockList stockList={this.props.masterStockList} onItemSelection={this.handleChangingSelectedItem} />
       buttonText = "Add Stock";
     }
     return (
@@ -108,5 +155,17 @@ class StockControl extends React.Component {
     );
   }
 }
+
+StockControl.propTypes = {
+  masterStockList: PropTypes.object
+};
+
+const mapStateToProps = state => {
+  return {
+    masterStockList: state
+  }
+}
+
+StockControl = connect(mapStateToProps)(StockControl);
 
 export default StockControl;

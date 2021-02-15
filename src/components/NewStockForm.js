@@ -7,7 +7,7 @@ function NewStockForm(props) {
 
   function handleNewStockFormSubmission(event) {
     event.preventDefault();
-    props.onNewStockCreation({name: event.target.name.value, description: event.target.description.value, quantity: event.target.quantity.value, id: v4()});
+    props.onNewStockCreation({name: event.target.name.value, description: event.target.description.value, quantity: parseInt(event.target.quantity.value), id: v4()});
   }
 
   return (
