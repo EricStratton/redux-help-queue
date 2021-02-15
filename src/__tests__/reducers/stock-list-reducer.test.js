@@ -6,9 +6,20 @@ describe ('stockListReducer', () => {
     const stockData = {
       name: 'T-Shirt',
       description: 'Red t-shirts.',
-      quantity: '20',
+      quantity: 20,
       id: 1
     };
+
+  const currentState = {
+    1: { name: 'T-Shirt',
+    description: 'Red t-shirts.',
+    quantity: 20,
+    id: 1 },
+    2: { name: 'Socks', 
+    description: 'Stripped socks',
+    quantity: 50,
+    id: 2 }
+  }
 
   test('Should return default state if there is no action passed into reducer', () => {
     expect(stockListReducer({}, { type: null })).toEqual({});
@@ -32,6 +43,19 @@ describe ('stockListReducer', () => {
         quantity: quantity,
         id: id
       }
+    });
+  });
+
+  test('Should successfully delete a stock item', () => {
+    action = {
+      type: 'DELETE_STOCK',
+      id: 1
+    };
+    expect(stockListReducer(currentState, action)).toEqual({
+      2: { name: 'Socks', 
+      description: 'Stripped socks',
+      quantity: 50, 
+      id: 2 }
     });
   });
 
