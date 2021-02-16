@@ -53,25 +53,6 @@ class StockControl extends React.Component {
     });
   }
 
-  // handleSellingStockInList = (toIncrease) => { // Method to decrement Item quantity by one. //
-  //   const selectedItem = this.state.selectedItem;
-  //   let newQuantity;
-  //   if (toIncrease) {
-  //     newQuantity = Object.assign({}, selectedItem, { quantity: parseInt(selectedItem.quantity) + 1 });
-  //   } else {
-  //     newQuantity = Object.assign({}, selectedItem, { quantity: parseInt(selectedItem.quantity) - 1 });
-  //   }
-  //   const newItemList = this.state.masterStockList
-  //     .filter(item => item.id !== this.state.selectedItem.id)
-  //     .concat(newQuantity);
-  //   this.setState({
-  //     masterStockList: newItemList,
-  //     selectedItem: newQuantity
-  //   });
-  // }
-
-  ///////////////////
-
   handleSellingStockInList = (stockToSell, toIncrease) => {
     const { dispatch } = this.props;
     const { id, name, description, quantity } = stockToSell;
@@ -99,8 +80,6 @@ class StockControl extends React.Component {
       selectedItem: null
     });
   } 
-
-  ///////////////////
 
   handleDeletingStock = (id) => {
     const { dispatch } = this.props;
